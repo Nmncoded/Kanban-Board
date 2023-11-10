@@ -1,0 +1,86 @@
+[
+  {
+    "id": 11,
+    "name" : "Backlog",
+    "items" : [
+      {
+        "id": 1,
+        "priority": 0,
+        "title": "Company website design.",
+        "chat": 1
+      },
+      {
+        "id": 2,
+        "priority": 1,
+        "title": "Mobile app login prototype.",
+        "chat": 10
+      },
+      {
+        "id": 3,
+        "priority": 2,
+        "title": "Do assignment work.",
+        "chat": 5
+      },
+      {
+        "id": 4,
+        "priority": 1,
+        "title": "Explore reactjs library.",
+        "chat": 10
+      },
+      {
+        "id": 5,
+        "priority": 1,
+        "title": "Assign searchbar task.",
+        "chat": 10
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name" : "In Progress",
+    "items" : [
+      {
+        "id": 6,
+        "priority": 1,
+        "title": "Research and strategy for upcoming project.",
+        "chat": 1
+      },
+      {
+        "id": 7,
+        "priority": 2,
+        "title": "Mobile vision app.",
+        "chat": 10
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name" : "In Review",
+    "items" : [
+      {
+        "id": 8,
+        "priority": 2,
+        "title": "Dashborad layout design.",
+        "chat": 1
+      },
+      {
+        "id": 9,
+        "priority": 1,
+        "title": "Social media posts.",
+        "chat": 10
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name" : "Completed",
+    "items" : [
+      {
+        "id": 10,
+        "priority": 0,
+        "title": "Review spec doc and give feedback.",
+        "chat": 1
+      }
+    ]
+  }
+]
