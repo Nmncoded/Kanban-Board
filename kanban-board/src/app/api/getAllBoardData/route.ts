@@ -12,6 +12,6 @@ export async function POST(request:Request){
 
 export async function GET(request:Request){
   await connectMongodb();
-  const res = await WorkType.find().populate('itemIds');
-  return NextResponse.json({message:'success',res},{status:200});
+  const data = await WorkType.find().populate('itemIds');
+  return NextResponse.json({message:'success',data},{status:200});
 }

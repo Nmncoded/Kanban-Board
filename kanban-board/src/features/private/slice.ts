@@ -1,17 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { privateApi } from './api';
 import { store } from '@/store';
 
 // Define a type for the slice state
 interface initialStoreState {
-  allMealPlansData: any[],
+  allBoardData: any,
 }
 
 
 const privateSlice = createSlice({
   name: 'privateSlice',
   initialState: {
-    allMealPlansData : [],
+    allBoardData : [],
     inputValue : '',
   },
   reducers: {
@@ -19,12 +18,7 @@ const privateSlice = createSlice({
       state.inputValue = action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addMatcher(privateApi.endpoints.getAllMealPlans.matchFulfilled, (state, action) => {
-        // state.allMealPlansData = action.payload;
-      })
-  },
+  extraReducers: (builder) => {},
 });
 
 // Action creators are generated for each case reducer function

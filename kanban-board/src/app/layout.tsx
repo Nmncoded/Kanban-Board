@@ -6,7 +6,7 @@ import Header from '@/components/header'
 import Sidebar from '@/components/sidebar'
 import { Provider } from 'react-redux';
 import {store} from '../store';
-import {DndContext} from '@dnd-kit/core';
+import TopBarProgress from "react-topbar-progress-indicator";
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,6 +22,14 @@ const metadata:Metadata = {
   title: 'Kanban-board',
   description: 'kanban-board app',
 }
+
+TopBarProgress.config({
+  barColors: {
+    0: "#1890ff",
+  },
+  barThickness: 4,
+  shadowBlur: 5,
+});
 
 export default function RootLayout({
   children,

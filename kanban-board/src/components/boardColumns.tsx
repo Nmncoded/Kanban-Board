@@ -1,11 +1,11 @@
 "use client"
-import CardItem from '@/components/cardItem';
-import board_data from '../../data/board-data.json';
+// import CardItem from '@/components/cardItem';
 import { useEffect, useState } from 'react';
 import { useDroppable} from '@dnd-kit/core';
+import CardItem from './cardItem';
 
 export default function Columns({index,board, boardData, setBoardData, isFormVisible,handleAddTaskBtn,ontextChange}) {
-  const { isOver, setNodeRef } = useDroppable({ id: board.id, data : board});
+  const { isOver, setNodeRef } = useDroppable({ id: board._id, data : board});
 
   return (
     <div ref={setNodeRef} className={`bg-gray-100 p-3 rounded-md shadow-md flex flex-col relative overflow-hidden`} >
@@ -19,22 +19,22 @@ export default function Columns({index,board, boardData, setBoardData, isFormVis
 
       <div className='overflow-y-auto overflow-x-hidden h-auto' style={{ maxHeight: 'calc(100vh - 290px)' }} >
         {
-          board?.items?.length > 0 && (
-            board?.items?.map((item:any, indx:any) => (
-              <CardItem key={item?.id} index={indx} data={item} boardData={boardData} setBoardData={setBoardData} boardId={board?.id} />
+          board?.itemIds?.length > 0 && (
+            board?.itemIds?.map((item:any, indx:any) => (
+              <CardItem key={item?._id} index={indx} data={item} boardData={boardData} setBoardData={setBoardData} boardId={board?._id} />
             ))
           )
         }
 
       </div>
       {
-        isFormVisible === board?.id ?
+        isFormVisible === board?._id ?
           <div className='p-3 w-full' >
-            <textarea rows={3} onKeyDown={ontextChange} data-id={index} className='border-gray-300 w-full p-2 rounded fous:ring-purple-400' placeholder='Task info..' />
+            <textarea rows={3} onKeyDown={ontextChange} data-id={board?._id} className='border-gray-300 w-full p-2 rounded fous:ring-purple-400' placeholder='Task info..' />
           </div>
           :
           <button
-            onClick={(e) => handleAddTaskBtn(e, board?.id)}
+            onClick={(e) => handleAddTaskBtn(e, board?._id)}
             className='flex justify-center items-center mt-6 space-x-2 text-lg' >
             <span>Add task</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-500">

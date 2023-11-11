@@ -1,33 +1,60 @@
 import { api } from './index.ts';
-// const apiVersion = import.meta.env.VITE_SERVER_VERSION;
 
 export const privateApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    // createAgency: builder.mutation({
-    //   query: (data) => {
-    //     return {
-    //       url: `agency/${apiVersion}/createAgency`,
-    //       method: "POST",
-    //       body: data.body,
-    //     };
-    //   },
-    //   // invalidatesTags: [''],
-    //   transformResponse: (response, meta, arg) => {
-    //     return response;
-    //   },
-    //   // transformErrorResponse: (response, meta, arg) => console.log(response,meta,arg),
-    // }),
-    getAllMealPlans: builder.query({
+    createItem: builder.mutation({
       query: (data) => {
         return {
-          url: `package/${`v1`}/getAllMealPlans`,
+          url: `api/boardItems`,
+          method: "POST",
+          body: data.body,
+        };
+      },
+      invalidatesTags: ['boardData'],
+      transformResponse: (response, meta, arg) => {
+        return response;
+      },
+      // transformErrorResponse: (response, meta, arg) => console.log(response,meta,arg),
+    }),
+    deleteItem: builder.mutation({
+      query: (data) => {
+        return {
+          url: `api/boardItems`,
+          method: "DELETE",
+          body: data.body,
+        };
+      },
+      invalidatesTags: ['boardData'],
+      transformResponse: (response, meta, arg) => {
+        return response;
+      },
+      // transformErrorResponse: (response, meta, arg) => console.log(response,meta,arg),
+    }),
+    updateItem: builder.mutation({
+      query: (data) => {
+        return {
+          url: `api/boardItems`,
+          method: "PUT",
+          body: data.body,
+        };
+      },
+      invalidatesTags: ['boardData'],
+      transformResponse: (response, meta, arg) => {
+        return response;
+      },
+      // transformErrorResponse: (response, meta, arg) => console.log(response,meta,arg),
+    }),
+    getAllBoardData: builder.query({
+      query: (data) => {
+        return {
+          url: `api/getAllBoardData`,
           method: "GET",
         };
       },
-      providesTags: ["allMealPlans"],
+      providesTags: ["boardData"],
       // Pick out data and prevent nested properties in a hook or selector
-      transformResponse: (response, meta, arg) => {
-        return response;
+      transformResponse: (response:any, meta, arg) => {
+        return response?.data?.length>0 ? response?.data: [];
       },
       // Pick out errors and prevent nested properties in a hook or selector
       // transformErrorResponse: (response, meta, arg) => response.status,
@@ -38,7 +65,10 @@ export const privateApi = api.injectEndpoints({
 
 
 export const {
-  useGetAllMealPlansQuery,
+  useGetAllBoardDataQuery,
+  useCreateItemMutation,
+  useDeleteItemMutation,
+  useUpdateItemMutation,
 } = privateApi;
 
 // In this example, we define an API object using createApi with an endpoint for fetching posts. We also define a postsSlice with an initial state that includes a posts array, a loading state, and an error state.

@@ -1,32 +1,38 @@
 import connectMongodb from "@/libs/mongodb";
 import Card from "@/models/cardModel";
+import WorkType from "@/models/workTypeModel";
+import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 
-export async function POST(request:Request){
-  const {title,chat,priority,boardId, workTypeId} = await request.json();
+export async function POST(request: Request) {
+  const { title, chat, priority, boardId, workTypeId } = await request.json();
   await connectMongodb();
-  await Card.create({title, chat, priority, boardId, workTypeId});
-  return NextResponse.json({message:'success'},{status:200});
+  var id = new mongoose.mongo.ObjectId(workTypeId);
+  const board = await WorkType.findById(workTypeId);
+  console.log(title,chat, priority, boardId, workTypeId,id,board);
+  const data = await Card.create({ title, chat, priority, boardId, workTypeId:id });
+  await WorkType.findByIdAndUpdate(id,{$push:{ itemIds : data.id }});
+  return NextResponse.json({ message: 'success',data}, { status: 200 });
 }
 
-export async function DELETE(request:Request,second:any){
-  // const id = request.;
-  const urlParams = new URL(request.url);
- console.log({urlParams})
-const serviceId = urlParams.searchParams.get("id")
-  console.log(request,serviceId);
+export async function DELETE(request: Request) {
+  // const urlParams = new URL(request.url);
+  // const cardId = urlParams.searchParams.get("cardId");
+  // const boardId = urlParams.searchParams.get("boardId");
+  const { cardId, boardId } = await request.json();
+  console.log(cardId, boardId);
   await connectMongodb();
-  await Card.findByIdAndDelete(serviceId);
-  return NextResponse.json({message:'deleted successfully'},{status:200});
+  const data = await Card.findByIdAndDelete(cardId);
+  await WorkType.findByIdAndUpdate(boardId,{$pull:{ itemIds : cardId }});
+  return NextResponse.json({ message: 'deleted successfully' }, { status: 200 });
 }
 
-export async function PUT(request:Request,second:any){
-  // const id = request.;
-  const urlParams = new URL(request.url);
- console.log({urlParams})
-const serviceId = urlParams.searchParams.get("id")
-  console.log(request,serviceId);
+export async function PUT(request: Request) {
+  // const urlParams = new URL(request.url);
+  // const cardId = urlParams.searchParams.get("cardId")
+  const { cardId, boardId, title } = await request.json();
+  console.log(cardId, boardId, title );
   await connectMongodb();
-  await Card.findByIdAndUpdate(serviceId,request.body);
-  return NextResponse.json({message:'deleted successfully'},{status:200});
+  await Card.findByIdAndUpdate(cardId, { title });
+  return NextResponse.json({ message: 'updated successfully' }, { status: 200 });
 }

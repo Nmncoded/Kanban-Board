@@ -6,13 +6,13 @@ const cardSchema = new Schema(
     boardId: { type: Number, default: Math.round(Math.random()*3) },
     title: { type: String, required: true },
     chat: { type: Number, default: Math.round(Math.random()*10) },
-    WorkTypeId: { type: Schema.Types.ObjectId, ref: "WorkType", require },
+    workTypeId: { type: Schema.Types.ObjectId, ref: 'WorkType' },
   },
   {
     timestamps: true
   }
 )
 
-const Card = mongoose.models.Card || mongoose.model('Card',cardSchema);
+const Card = mongoose.model('Card',cardSchema);
 
 export default Card;
