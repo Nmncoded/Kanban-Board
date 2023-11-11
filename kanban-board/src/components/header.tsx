@@ -8,8 +8,6 @@ export default function Header() {
   const dispatch = useDispatch();
   const {inputValue} = useSelector((store:RootState) => store.privateData);
 
-  console.log(inputValue);
-
   const onChange = (e:any) => {
     dispatch(setInputValue(e.target.value));
   }

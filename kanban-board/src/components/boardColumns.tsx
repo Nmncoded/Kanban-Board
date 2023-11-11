@@ -3,9 +3,13 @@
 import { useEffect, useState } from 'react';
 import { useDroppable} from '@dnd-kit/core';
 import CardItem from './cardItem';
+import { RootState } from '@/features/private/slice';
+import { useSelector } from 'react-redux';
 
 export default function Columns({index,board, boardData, setBoardData, isFormVisible,handleAddTaskBtn,ontextChange}) {
   const { isOver, setNodeRef } = useDroppable({ id: board._id, data : board});
+  const {inputValue} = useSelector((store:RootState) => store.privateData);
+
 
   return (
     <div ref={setNodeRef} className={`bg-gray-100 p-3 rounded-md shadow-md flex flex-col relative overflow-hidden`} >
@@ -19,11 +23,21 @@ export default function Columns({index,board, boardData, setBoardData, isFormVis
 
       <div className='overflow-y-auto overflow-x-hidden h-auto' style={{ maxHeight: 'calc(100vh - 290px)' }} >
         {
-          board?.itemIds?.length > 0 && (
+          board?.itemIds?.length > 0 && inputValue ? 
+          (
+            board?.itemIds?.filter((d:any) => d?.title?.toLowerCase()?.includes(inputValue?.toLowerCase()))?.map((item:any, indx:any) => (
+              <CardItem key={item?._id} index={indx} data={item} boardData={boardData} setBoardData={setBoardData} boardId={board?._id} />
+            ))
+          )
+          :
+          board?.itemIds?.length > 0 ?
+          (
             board?.itemIds?.map((item:any, indx:any) => (
               <CardItem key={item?._id} index={indx} data={item} boardData={boardData} setBoardData={setBoardData} boardId={board?._id} />
             ))
           )
+          :
+          null
         }
 
       </div>
