@@ -1,15 +1,28 @@
 'use client'
-
-import Image from "next/image"
+import { RootState, setInputValue } from "@/features/private/slice";
+import { useState } from "react"
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux"
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const {inputValue} = useSelector((store:RootState) => store.privateData);
+
+  console.log(inputValue);
+
+  const onChange = (e:any) => {
+    dispatch(setInputValue(e.target.value));
+  }
+
+
+
   return (
     <section className="h-16 pl-40 fixed bg-gradient-to-r w-full from-purple-400 to-blue-500 flex items-center justify-between pr-5" >
       <div className="flex px-5 items-center" >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-white mr-2">
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
-        <input type="text" placeholder="Search for tasks..." className="bg-transparent border-0 text-white placeholder-white outline-none focus:ring-0 text-lg" />
+        <input value={inputValue} onChange={onChange} type="text" placeholder="Search for tasks..." className="bg-transparent border-0 text-white placeholder-white outline-none focus:ring-0 text-lg" />
       </div>
       <div className="flex space-x-6" >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 text-white">

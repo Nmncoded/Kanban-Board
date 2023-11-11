@@ -3,7 +3,7 @@
 export default function Sidebar() {
   return (
     <section className="fixed inset-y-0 left-0 bg-white w-40" >
-      <h1 className="flex items-center justify-center text-xl h-16 bg-purple-600 text-white font-bold" >hussle</h1>
+      <h1 className="flex items-center justify-center text-xl h-16 bg-purple-600 text-white font-bold" >Board</h1>
       <ul className='flex flex-col text-lg h-full' >
         <li className='flex justify-center items-center flex-col py-7 text-gray-500' >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
