@@ -2,8 +2,8 @@
 
 import { useDeleteItemMutation, useUpdateItemMutation } from "@/features/private/api";
 import { useDraggable } from "@dnd-kit/core";
+import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import Image from "next/image"
 import { ReactNode, useState } from "react";
 import TopBarProgress from "react-topbar-progress-indicator";
 
@@ -27,13 +27,10 @@ export default function CardItem({ data, setBoardData, boardData, boardId, index
   const [canUpdate, setCanUpdate] = useState({ boardId: 0, cardId: 0 });
   const [deleteItem, { isLoading: loading }] = useDeleteItemMutation();
   const [updateItem, { isLoading }] = useUpdateItemMutation();
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: data?._id,
-  });
-  const style = {
-    // Outputs `translate3d(x, y, 0)`
-    transform: CSS.Translate.toString(transform),
-  }
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({
+      id: data?._id
+    });
 
   const handleUpdateBtn = (e: any, boardId: number, cardId: number) => {
     setCanUpdate({ boardId, cardId });
@@ -46,7 +43,7 @@ export default function CardItem({ data, setBoardData, boardData, boardId, index
       if (value?.length === 0) {
         setCanUpdate({ boardId: 0, cardId: 0 });
       } else {
-        console.log("inside update", canUpdate?.cardId, canUpdate?.boardId,value);
+        console.log("inside update", canUpdate?.cardId, canUpdate?.boardId, value);
         const body = {
           boardId: canUpdate?.boardId,
           cardId: canUpdate?.cardId,
@@ -86,7 +83,15 @@ export default function CardItem({ data, setBoardData, boardData, boardId, index
 
 
   return (
-    <div className={`bg-whiite rounded-md p-3 m-3 mt-0 last:mb-0`} ref={setNodeRef} style={style} {...listeners} {...attributes} >
+    <div
+      ref={setNodeRef}
+      {...listeners}
+      {...attributes}
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition: transition
+      }}
+      className={`bg-whiite rounded-md p-3 m-3 mt-0 last:mb-0`} >
       {
         (loading || isLoading) && (
           <TopBarProgress />

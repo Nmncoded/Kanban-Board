@@ -4,12 +4,13 @@ import board_data from '../../data/board-data.json';
 import { useEffect, useState } from 'react';
 import { DndContext } from '@dnd-kit/core';
 import Columns from '@/components/boardColumns';
-import { useCreateItemMutation, useGetAllBoardDataQuery } from '@/features/private/api';
+import { useCreateItemMutation, useGetAllBoardDataQuery, useUpdateBoardDataMutation } from '@/features/private/api';
 import TopBarProgress from 'react-topbar-progress-indicator';
 
 export default function Home() {
   // const { data, isLoading, isError } = useGetAllBoardDataQuery({});
   const [createItem, { isLoading: loading }] = useCreateItemMutation();
+  const [updateBoardData, { isLoading }] = useUpdateBoardDataMutation();
   const [isFormVisible, setFormVisibility] = useState(0);
   const [boardData, setBoardData] = useState(board_data);
 
@@ -19,22 +20,24 @@ export default function Home() {
 
   // console.log(data, isLoading, isError);
 
-  const onDragEnd = (re: any) => {
-    // if (!re.destination) return;
-    // console.log(re);
-    // let newBoardData = boardData;
-    // var dragItem =
-    //   newBoardData[parseInt(re.source.droppableId)].items[re.source.index];
-    // newBoardData[parseInt(re.source.droppableId)].items.splice(
-    //   re.source.index,
-    //   1
-    // );
-    // newBoardData[parseInt(re.destination.droppableId)].items.splice(
-    //   re.destination.index,
-    //   0,
-    //   dragItem
-    // );
-    // setBoardData(newBoardData);
+  const onDragEnd = (data: any) => {
+    const activeBoardId = data?.active?.data?.current?.sortable?.containerId;
+    const cardId = data?.active?.id;
+    const overBoardId = data?.over?.data?.current?.sortable?.containerId;
+    console.log(data,cardId,activeBoardId, overBoardId);
+    updateBoardData({
+      body:{
+        cardId,
+        activeBoardId,
+        overBoardId
+      },
+    }).unwrap()
+      .then(res => {
+        // console.log('added done!',res);
+      })
+      .catch(err => {
+        console.log('delete err', err);
+      })
   };
 
   const handleAddTaskBtn = (e: any, id: number) => {
@@ -83,11 +86,11 @@ export default function Home() {
   return (
     <section className='pl-10 pr-10' >
       {
-        loading && (
+        (loading || isLoading) && (
           <TopBarProgress />
         )
       }
-      <DndContext onDragEnd={onDragEnd} >
+      <DndContext id="unique-dnd-context-id" onDragEnd={onDragEnd} >
         {/* Board header */}
         <div className='flex justify-between' >
           <div className='flex items-center' >
@@ -126,14 +129,7 @@ export default function Home() {
           </div>
         </div>
         {/* Board columns */}
-        <div className='grid grid-cols-3 gap-5 my-5'  >
-          {
-            boardData?.map((board: any, index: any) => (
-              <Columns index={index} handleAddTaskBtn={handleAddTaskBtn} ontextChange={ontextChange} key={index} board={board} boardData={boardData} setBoardData={setBoardData} isFormVisible={isFormVisible} />
-
-            ))
-          }
-        </div>
+        <Columns handleAddTaskBtn={handleAddTaskBtn} ontextChange={ontextChange} boardData={boardData} setBoardData={setBoardData} isFormVisible={isFormVisible} />
       </DndContext>
     </section>
   )

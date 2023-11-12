@@ -41,18 +41,18 @@
     ]
   },
   {
-    "_id": 13,
+    "_id": 12,
     "name" : "In Progress",
     "itemIds" : [
       {
-        "_id": 8,
+        "_id": 6,
         "priority": 2,
         "title": "Dashborad layout design.",
         "chat": 1,
         "boardId" : 1
       },
       {
-        "_id": 9,
+        "_id": 7,
         "priority": 1,
         "title": "Social media posts.",
         "chat": 10,
@@ -61,11 +61,11 @@
     ]
   },
   {
-    "_id": 14,
+    "_id": 13,
     "name" : "Completed",
     "itemIds" : [
       {
-        "_id": 10,
+        "_id": 8,
         "priority": 0,
         "title": "Review spec doc and give feedback.",
         "chat": 1,

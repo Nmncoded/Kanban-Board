@@ -44,6 +44,20 @@ export const privateApi = api.injectEndpoints({
       },
       // transformErrorResponse: (response, meta, arg) => console.log(response,meta,arg),
     }),
+    updateBoardData: builder.mutation({
+      query: (data) => {
+        return {
+          url: `api/updateBoardData`,
+          method: "PUT",
+          body: data.body,
+        };
+      },
+      invalidatesTags: ['boardData'],
+      transformResponse: (response, meta, arg) => {
+        return response;
+      },
+      // transformErrorResponse: (response, meta, arg) => console.log(response,meta,arg),
+    }),
     getAllBoardData: builder.query({
       query: (data) => {
         return {
@@ -69,6 +83,7 @@ export const {
   useCreateItemMutation,
   useDeleteItemMutation,
   useUpdateItemMutation,
+  useUpdateBoardDataMutation
 } = privateApi;
 
 // In this example, we define an API object using createApi with an endpoint for fetching posts. We also define a postsSlice with an initial state that includes a posts array, a loading state, and an error state.
