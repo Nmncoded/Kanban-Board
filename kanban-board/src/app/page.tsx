@@ -8,14 +8,14 @@ import { useCreateItemMutation, useGetAllBoardDataQuery } from '@/features/priva
 import TopBarProgress from 'react-topbar-progress-indicator';
 
 export default function Home() {
-  const { data, isLoading, isError } = useGetAllBoardDataQuery({});
+  // const { data, isLoading, isError } = useGetAllBoardDataQuery({});
   const [createItem, { isLoading: loading }] = useCreateItemMutation();
   const [isFormVisible, setFormVisibility] = useState(0);
   const [boardData, setBoardData] = useState(board_data);
 
-  useEffect(() => {
-    setBoardData(data);
-  }, [data])
+  // useEffect(() => {
+  //   setBoardData(data);
+  // }, [data])
 
   // console.log(data, isLoading, isError);
 
