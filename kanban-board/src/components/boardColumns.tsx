@@ -23,14 +23,14 @@ export default function Columns({index,board, boardData, setBoardData, isFormVis
 
       <div className='overflow-y-auto overflow-x-hidden h-auto' style={{ maxHeight: 'calc(100vh - 290px)' }} >
         {
-          board?.itemIds?.length > 0 && inputValue ? 
+          Array.isArray(board?.itemIds) && board?.itemIds?.length > 0 && inputValue ? 
           (
             board?.itemIds?.filter((d:any) => d?.title?.toLowerCase()?.includes(inputValue?.toLowerCase()))?.map((item:any, indx:any) => (
               <CardItem key={item?._id} index={indx} data={item} boardData={boardData} setBoardData={setBoardData} boardId={board?._id} />
             ))
           )
           :
-          board?.itemIds?.length > 0 ?
+          Array.isArray(board?.itemIds) && board?.itemIds?.length > 0 ?
           (
             board?.itemIds?.map((item:any, indx:any) => (
               <CardItem key={item?._id} index={indx} data={item} boardData={boardData} setBoardData={setBoardData} boardId={board?._id} />

@@ -9,9 +9,9 @@ export async function POST(request: Request) {
   await connectMongodb();
   var id = new mongoose.mongo.ObjectId(workTypeId);
   const board = await WorkType.findById(workTypeId);
-  console.log(title,chat, priority, boardId, workTypeId,id,board);
   const data = await Card.create({ title, chat, priority, boardId, workTypeId:id });
-  await WorkType.findByIdAndUpdate(id,{$push:{ itemIds : data.id }});
+  const res = await WorkType.findByIdAndUpdate(id,{$push:{ itemIds : data.id }},{new:true});
+  console.log(id,board,data,res);
   return NextResponse.json({ message: 'success',data}, { status: 200 });
 }
 
