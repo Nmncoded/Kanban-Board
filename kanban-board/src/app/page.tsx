@@ -11,7 +11,7 @@ export default function Home() {
   const { data, isLoading, isError } = useGetAllBoardDataQuery({});
   const [createItem, { isLoading: loading }] = useCreateItemMutation();
   const [isFormVisible, setFormVisibility] = useState(0);
-  const [boardData, setBoardData] = useState(data);
+  const [boardData, setBoardData] = useState(board_data);
 
   useEffect(() => {
     setBoardData(data);
@@ -70,16 +70,15 @@ export default function Home() {
     }
   }
 
-  // console.log(isFormVisible);
 
 
-  if (isLoading) {
-    return <TopBarProgress />
-  } else if (isError) {
-    return (
-      <h1 className='text-4xl font-bold text-gray-600 flex items-center p-2 text-center' >Oops! Some error occured in the system.Try to refresh page !!!</h1>
-    )
-  }
+  // if (isLoading) {
+  //   return <TopBarProgress />
+  // } else if (isError) {
+  //   return (
+  //     <h1 className='text-4xl font-bold text-gray-600 flex items-center p-2 text-center' >Oops! Some error occured in the system.Try to refresh page !!!</h1>
+  //   )
+  // }
 
   return (
     <section className='pl-10 pr-10' >

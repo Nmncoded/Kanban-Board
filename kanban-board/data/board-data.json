@@ -1,67 +1,75 @@
 [
   {
-    "id": 11,
+    "_id": 11,
     "name" : "To Do",
-    "items" : [
+    "itemIds" : [
       {
-        "id": 1,
+        "_id": 1,
         "priority": 0,
         "title": "Company website design.",
-        "chat": 1
+        "chat": 1,
+        "boardId" : 2
       },
       {
-        "id": 2,
+        "_id": 2,
         "priority": 1,
         "title": "Mobile app login prototype.",
-        "chat": 10
+        "chat": 10,
+        "boardId" : 1
       },
       {
-        "id": 3,
+        "_id": 3,
         "priority": 2,
         "title": "Do assignment work.",
-        "chat": 5
+        "chat": 5,
+        "boardId" : 3
       },
       {
-        "id": 4,
+        "_id": 4,
         "priority": 1,
         "title": "Explore reactjs library.",
-        "chat": 10
+        "chat": 10,
+        "boardId" : 1
       },
       {
-        "id": 5,
+        "_id": 5,
         "priority": 1,
         "title": "Assign searchbar task.",
-        "chat": 10
+        "chat": 10,
+        "boardId" : 3
       }
     ]
   },
   {
-    "id": 13,
+    "_id": 13,
     "name" : "In Progress",
-    "items" : [
+    "itemIds" : [
       {
-        "id": 8,
+        "_id": 8,
         "priority": 2,
         "title": "Dashborad layout design.",
-        "chat": 1
+        "chat": 1,
+        "boardId" : 1
       },
       {
-        "id": 9,
+        "_id": 9,
         "priority": 1,
         "title": "Social media posts.",
-        "chat": 10
+        "chat": 10,
+        "boardId" : 3
       }
     ]
   },
   {
-    "id": 14,
+    "_id": 14,
     "name" : "Completed",
-    "items" : [
+    "itemIds" : [
       {
-        "id": 10,
+        "_id": 10,
         "priority": 0,
         "title": "Review spec doc and give feedback.",
-        "chat": 1
+        "chat": 1,
+        "boardId" : 2
       }
     ]
   }

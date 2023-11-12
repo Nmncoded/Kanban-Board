@@ -10,6 +10,8 @@ export default function Columns({index,board, boardData, setBoardData, isFormVis
   const { isOver, setNodeRef } = useDroppable({ id: board._id, data : board});
   const {inputValue} = useSelector((store:RootState) => store.privateData);
 
+  console.log(inputValue);;
+
 
   return (
     <div ref={setNodeRef} className={`bg-gray-100 p-3 rounded-md shadow-md flex flex-col relative overflow-hidden`} >
