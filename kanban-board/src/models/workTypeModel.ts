@@ -1,15 +1,15 @@
 import mongoose,{Schema} from "mongoose";
 
-const workTypeSchema = new Schema(
+var workTypeSchema = new Schema(
   {
     name: String,
-    itemIds: [{ type: Schema.Types.ObjectId, ref: 'Card', default: [] }],
+    itemIds: [{ type: Schema.Types.ObjectId, ref: "Card", default: [] }],
   },
   {
     timestamps: true
   }
 )
 
-const WorkType = mongoose.models.WorkType ||  mongoose.model('WorkType',workTypeSchema);
+var WorkType =  mongoose.models.WorkType || mongoose.model("WorkType",workTypeSchema);
 
 export default WorkType;

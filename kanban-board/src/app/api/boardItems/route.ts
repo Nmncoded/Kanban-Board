@@ -20,10 +20,11 @@ export async function DELETE(request: Request) {
   // const cardId = urlParams.searchParams.get("cardId");
   // const boardId = urlParams.searchParams.get("boardId");
   const { cardId, boardId } = await request.json();
-  console.log(cardId, boardId);
+  console.log("res1: " ,cardId, boardId);
   await connectMongodb();
-  const data = await Card.findByIdAndDelete(cardId);
-  await WorkType.findByIdAndUpdate(boardId,{$pull:{ itemIds : cardId }});
+  const card = await Card.findByIdAndDelete(cardId,{new:true});
+  const res = await WorkType.findByIdAndUpdate(boardId,{$pull:{ itemIds : cardId }},{new:true});
+  console.log("res2: ", card, res);
   return NextResponse.json({ message: 'deleted successfully' }, { status: 200 });
 }
 
@@ -33,6 +34,6 @@ export async function PUT(request: Request) {
   const { cardId, boardId, title } = await request.json();
   console.log(cardId, boardId, title );
   await connectMongodb();
-  await Card.findByIdAndUpdate(cardId, { title });
+  await Card.findByIdAndUpdate(cardId, { title },{new:true});
   return NextResponse.json({ message: 'updated successfully' }, { status: 200 });
 }
