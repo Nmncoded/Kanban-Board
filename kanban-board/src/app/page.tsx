@@ -17,7 +17,7 @@ export default function Home() {
     setBoardData(data);
   }, [data])
 
-  console.log(data, isLoading, isError);
+  // console.log(data, isLoading, isError);
 
   const onDragEnd = (re: any) => {
     // if (!re.destination) return;
